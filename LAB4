@@ -1,0 +1,110 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyM/mBNf0jIyZHB3CGXqOZqr",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/p-hariprasad/AI_LAB/blob/main/LAB4\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 13,
+      "metadata": {
+        "id": "z5vLMn1eYyuE"
+      },
+      "outputs": [],
+      "source": [
+        "from collections import deque"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def water_jug():\n",
+        "  start = (0,0)\n",
+        "  goal = 2\n",
+        "  visited = set()\n",
+        "  q = deque([(start,[start])])\n",
+        "\n",
+        "  while q:\n",
+        "    (x,y), path = q.popleft()\n",
+        "\n",
+        "    if x == goal or y == goal:\n",
+        "      print(\"goal reached:\",(x,y))\n",
+        "      print(\"action sequence(states):\")\n",
+        "      for step in path:\n",
+        "        print(step)\n",
+        "      return\n",
+        "    if (x,y) in visited:\n",
+        "      continue\n",
+        "    visited.add((x,y))\n",
+        "\n",
+        "    actions = [\n",
+        "        (4,y),\n",
+        "        (x,3),\n",
+        "        (0,y),\n",
+        "        (x,0),\n",
+        "        (x - min(x,3-y),y + min(x,3-y)),\n",
+        "        (x + min(y,4-x),y - min(y,4-x))\n",
+        "    ]\n",
+        "    for a in actions:\n",
+        "      if a not in visited:\n",
+        "        q.append((a,path+[a]))\n"
+      ],
+      "metadata": {
+        "id": "3JdwbQNAZq0G"
+      },
+      "execution_count": 14,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "water_jug()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "uvRlQrKrcp-s",
+        "outputId": "e7be3dd9-560b-46af-fef0-6d82c3aef944"
+      },
+      "execution_count": 15,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "goal reached: (4, 2)\n",
+            "action sequence(states):\n",
+            "(0, 0)\n",
+            "(0, 3)\n",
+            "(3, 0)\n",
+            "(3, 3)\n",
+            "(4, 2)\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
